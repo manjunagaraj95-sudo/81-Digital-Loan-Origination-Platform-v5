@@ -1,0 +1,613 @@
+
+:root {
+  /* Ocean Theme */
+  --bg-main: #EBF8FF; /* Very light blue, like a pale sky */
+  --bg-secondary: #DAEEF6; /* Slightly deeper light blue, like a soft cloud */
+  --text-main: #0E2943; /* Dark navy blue, like deep ocean */
+  --text-secondary: #364B5E; /* Medium slate blue, like darker waves */
+  --primary-color: #0077B6; /* Vibrant ocean blue for primary actions */
+  --primary-hover: #005F9A; /* Darker blue on hover */
+  --secondary-color: #48CAE4; /* Bright aqua for accent */
+  --accent-color: #FFC107; /* Golden yellow for highlights/warnings (sun on water) */
+  --border-color: #BEE3F8; /* Light blue border */
+  --shadow-color: rgba(0, 119, 182, 0.1); /* Blue tint shadow */
+
+  /* Semantic Colors - adapted for theme */
+  --success-color: #28A745; /* Standard green for success */
+  --warning-color: #FFC107; /* Golden yellow */
+  --error-color: #DC3545; /* Standard red for errors */
+  --info-color: #17A2B8; /* Teal-blue for info */
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Font Sizes */
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+
+  /* Border Radii */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* App Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--bg-secondary);
+  padding: var(--spacing-lg) var(--spacing-md);
+  box-shadow: 2px 0 5px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+
+.sidebar-header {
+  margin-bottom: var(--spacing-xl);
+  color: var(--primary-color);
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  text-align: center;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.nav-item {
+  margin-bottom: var(--spacing-sm);
+}
+
+.nav-button {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: none;
+  border: none;
+  color: var(--text-main);
+  text-align: left;
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.nav-button:hover:not(.active) {
+  background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.nav-button.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+.nav-button-icon {
+  margin-right: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+}
+
+.sidebar-footer {
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  margin-top: var(--spacing-md); /* Add some margin from menu */
+}
+
+.logout-button {
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  transition: background-color 0.2s ease;
+  margin-top: var(--spacing-sm);
+}
+
+.logout-button:hover {
+  background-color: color-mix(in srgb, var(--error-color) 80%, black);
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: var(--spacing-xl);
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-toggle-button {
+  display: none; /* Hidden by default on desktop */
+  background: none;
+  border: none;
+  font-size: var(--font-size-2xl);
+  cursor: pointer;
+  color: var(--text-main);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  line-height: 1;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Login Screen */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+}
+
+.login-form-card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.login-form h1 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select { /* Added select */
+  width: calc(100% - (var(--spacing-md) * 2)); /* Account for padding */
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-size: var(--font-size-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus { /* Added select */
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 30%, transparent);
+}
+
+.login-button {
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Dashboard Specifics */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.metric-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  grid-column: 1 / -1; /* Make metric cards span full width */
+}
+
+.metric-card {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--primary-color); /* Highlight with primary color */
+}
+
+.metric-icon {
+  font-size: var(--font-size-2xl);
+  color: var(--primary-color);
+  margin-right: var(--spacing-md);
+  line-height: 1; /* Ensure icon aligns well */
+}
+
+.metric-value {
+  font-size: var(--font-size-2xl);
+  font-weight: bold;
+  color: var(--text-main);
+  margin-bottom: var(--spacing-xs);
+}
+
+.metric-trend {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.metric-trend.positive {
+  color: var(--success-color);
+}
+
+.metric-trend.negative {
+  color: var(--error-color);
+}
+
+.sales-overview-card,
+.recent-transactions-card {
+  grid-column: 1 / -1; /* These cards will span full width */
+}
+
+.sales-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 180px; /* Increased height for chart */
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  margin-top: var(--spacing-md);
+}
+
+.chart-bar {
+  width: 18%; /* Wider bars */
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.chart-bar:hover {
+  opacity: 0.8;
+  transform: translateY(-5px);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--spacing-md);
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.data-table th {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+}
+
+.data-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--primary-color) 5%, transparent); /* Lighter primary hover */
+}
+
+.status-badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.status-badge.completed {
+  background-color: color-mix(in srgb, var(--success-color) 20%, transparent);
+  color: var(--success-color);
+}
+
+.status-badge.pending {
+  background-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
+  color: var(--accent-color);
+}
+
+.status-badge.shipped {
+  background-color: color-mix(in srgb, var(--info-color) 20%, transparent);
+  color: var(--info-color);
+}
+
+.status-badge.cancelled {
+  background-color: color-mix(in srgb, var(--error-color) 20%, transparent);
+  color: var(--error-color);
+}
+
+/* Other Screens - basic styling */
+.content-placeholder {
+  padding: var(--spacing-xl);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+/* New Order Form Specifics */
+.order-screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.primary-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  transition: background-color 0.2s ease;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.secondary-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.secondary-button:hover {
+  background-color: var(--bg-main);
+  border-color: var(--primary-color);
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  margin-top: var(--spacing-lg);
+}
+
+/* Overlay for mobile sidebar */
+.overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 90; /* Below sidebar, above main content */
+  cursor: pointer;
+}
+
+/* Product Screen Specifics */
+.product-search-bar {
+  margin-bottom: var(--spacing-lg);
+}
+
+.product-search-input {
+  width: 100%;
+  max-width: 400px; /* Limit width for aesthetics */
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-size: var(--font-size-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 30%, transparent);
+}
+
+.data-table td:nth-child(4) { /* Assuming description is the 4th column in products table */
+  max-width: 280px; /* Prevent description from making table too wide */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 1024px) {
+  .main-content {
+    padding: var(--spacing-lg); /* Slightly less padding on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    display: block; /* Stacks content vertically */
+    position: relative;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hidden by default */
+    height: 100vh; /* Full viewport height */
+    width: 250px;
+    z-index: 100; /* Above other content */
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* More prominent shadow when open */
+    -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+    overflow-y: auto; /* Enable scrolling if sidebar content is long */
+  }
+
+  .sidebar.open {
+    left: 0; /* Slide in */
+  }
+
+  .sidebar-toggle-button {
+    display: block; /* Show hamburger icon on mobile */
+  }
+
+  .main-content {
+    padding: var(--spacing-md); /* Reduce padding on mobile */
+    margin-left: 0; /* No fixed margin from sidebar */
+  }
+
+  .header {
+    margin-bottom: var(--spacing-lg); /* Adjust header margin */
+  }
+
+  .overlay {
+    display: block; /* Show overlay when on mobile and sidebar might open */
+  }
+
+  /* Dashboard specific adjustments */
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack all items into a single column */
+  }
+
+  .metric-cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Allow smaller cards but still multiple if space */
+  }
+
+  .sales-overview-card,
+  .recent-transactions-card {
+    grid-column: auto; /* Revert to auto behavior for full width stacking */
+  }
+
+  /* Responsive table */
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling for tables */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    min-width: 600px; /* Ensure table doesn't get too cramped */
+  }
+
+  .product-search-input {
+    max-width: none; /* Allow full width on mobile */
+  }
+
+  .data-table td:nth-child(4) { /* Description column */
+    max-width: 150px; /* Adjust for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-header {
+    font-size: var(--font-size-xl);
+  }
+
+  .main-content {
+    padding: var(--spacing-sm); /* Even less padding on very small screens */
+  }
+
+  .header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .user-info span {
+    display: none; /* Hide user name to save space */
+  }
+
+  .metric-value {
+    font-size: var(--font-size-xl);
+  }
+
+  .metric-icon {
+    font-size: var(--font-size-xl);
+  }
+}
